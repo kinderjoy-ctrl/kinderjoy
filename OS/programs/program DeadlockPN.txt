@@ -1,0 +1,7 @@
+program DeadlockPN
+resource(X, allocate)
+wait(3)
+resource(Y, allocate)
+for n = 1 to 20
+next
+end
