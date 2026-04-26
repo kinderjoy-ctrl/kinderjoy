@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="form-box" style="text-align:center;">
+        <h2>Welcome!</h2>
+        <p id="welcomeMsg" style="margin-bottom:15px; font-size:16px;"></p>
+        <p style="color:#666; margin-bottom:20px;">You are logged in successfully.</p>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        var user = localStorage.getItem('loggedInUser');
+        if (!user) {
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('welcomeMsg').textContent = 'Hello, ' + user + '!';
+        }
+
+        function logout() {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+
+</body>
+</html>

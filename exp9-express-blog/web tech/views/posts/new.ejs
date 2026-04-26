@@ -1,0 +1,33 @@
+<%- include('../partials/head', { title: 'Create Post' }) %>
+<section class="card form-card">
+  <p class="eyebrow">New post</p>
+  <h1>Create a post</h1>
+  <p class="lede">Publish something fresh for everyone to read.</p>
+
+  <% if (error) { %>
+    <div class="alert"><%= error %></div>
+  <% } %>
+
+  <form class="form" method="post" action="/posts">
+    <label>
+      <span>Title</span>
+      <input type="text" name="title" value="<%= post.title %>" maxlength="120" required />
+    </label>
+
+    <label>
+      <span>Author</span>
+      <input type="text" name="author" value="<%= post.author || '' %>" placeholder="Anonymous" maxlength="80" />
+    </label>
+
+    <label>
+      <span>Body</span>
+      <textarea name="body" rows="10" required><%= post.body %></textarea>
+    </label>
+
+    <div class="card-actions">
+      <button class="button primary" type="submit">Publish post</button>
+      <a class="button ghost" href="/posts">Cancel</a>
+    </div>
+  </form>
+</section>
+<%- include('../partials/foot') %>

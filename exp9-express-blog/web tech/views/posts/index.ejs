@@ -1,0 +1,38 @@
+<%- include('../partials/head', { title: 'All Posts' }) %>
+<section class="hero card">
+  <div>
+    <p class="eyebrow">Blog platform</p>
+    <h1>Read, write, and manage posts in one place.</h1>
+    <p class="lede">Create new articles, update them later, delete anything you no longer want, and browse the latest posts from other users.</p>
+  </div>
+  <a class="button primary" href="/posts/new">Create post</a>
+</section>
+
+<section class="grid">
+  <% if (posts.length === 0) { %>
+    <article class="card empty-state">
+      <h2>No posts yet</h2>
+      <p>Be the first to publish something here.</p>
+      <a class="button primary" href="/posts/new">Write the first post</a>
+    </article>
+  <% } %>
+
+  <% posts.forEach((post) => { %>
+    <article class="card post-card">
+      <div class="post-meta">
+        <span><%= post.author %></span>
+        <span><%= new Date(post.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></span>
+      </div>
+      <h2><a href="/posts/<%= post.id %>"><%= post.title %></a></h2>
+      <p><%= post.body %></p>
+      <div class="card-actions">
+        <a class="button ghost" href="/posts/<%= post.id %>">View</a>
+        <a class="button ghost" href="/posts/<%= post.id %>/edit">Edit</a>
+        <form method="post" action="/posts/<%= post.id %>?_method=DELETE" onsubmit="return confirm('Delete this post?');">
+          <button class="button danger" type="submit">Delete</button>
+        </form>
+      </div>
+    </article>
+  <% }) %>
+</section>
+<%- include('../partials/foot') %>

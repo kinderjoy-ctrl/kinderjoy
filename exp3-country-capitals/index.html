@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Capitals</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Select a Country</h1>
+
+        <select id="countrySelect" onchange="showCapital()">
+            <option value="">-- Choose --</option>
+            <option value="New Delhi">India</option>
+            <option value="Washington D.C.">United States</option>
+            <option value="Tokyo">Japan</option>
+            <option value="London">United Kingdom</option>
+            <option value="Canberra">Australia</option>
+        </select>
+
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function showCapital() {
+            var sel = document.getElementById('countrySelect');
+            var res = document.getElementById('result');
+
+            if (sel.value) {
+                res.textContent = 'Capital: ' + sel.value;
+                res.style.display = 'block';
+            } else {
+                res.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "mongodb-crud-operations",
+  "version": "1.0.0",
+  "description": "MongoDB CRUD operations demo",
+  "main": "crud.js",
+  "scripts": {
+    "start": "node crud.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.0.0"
+  }
+}

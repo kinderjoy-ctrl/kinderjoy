@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="form-box">
+        <h2>Register</h2>
+        <form onsubmit="return validate()">
+            <div class="field">
+                <label>Name</label>
+                <input type="text" id="regName">
+                <span class="error" id="nameErr"></span>
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input type="text" id="regEmail">
+                <span class="error" id="emailErr"></span>
+            </div>
+            <div class="field">
+                <label>Phone</label>
+                <input type="text" id="regPhone">
+                <span class="error" id="phoneErr"></span>
+            </div>
+            <div class="field">
+                <label>Password</label>
+                <input type="password" id="regPass">
+                <span class="error" id="passErr"></span>
+            </div>
+            <button type="submit">Register</button>
+            <p id="msg"></p>
+        </form>
+        <p class="link">Already have an account? <a href="login.html">Login</a></p>
+    </div>
+
+    <script>
+        function validate() {
+            var valid = true;
+            document.getElementById('msg').textContent = '';
+            document.getElementById('msg').className = '';
+
+            var name = document.getElementById('regName').value.trim();
+            if (name.length < 2 || !/^[A-Za-z\s]+$/.test(name)) {
+                document.getElementById('nameErr').textContent = 'Letters only, min 2 chars';
+                valid = false;
+            } else {
+                document.getElementById('nameErr').textContent = '';
+            }
+
+            var email = document.getElementById('regEmail').value.trim();
+            if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+                document.getElementById('emailErr').textContent = 'Enter a valid email';
+                valid = false;
+            } else {
+                document.getElementById('emailErr').textContent = '';
+            }
+
+            var phone = document.getElementById('regPhone').value.trim();
+            if (!/^[0-9]{10}$/.test(phone)) {
+                document.getElementById('phoneErr').textContent = 'Enter 10 digit number';
+                valid = false;
+            } else {
+                document.getElementById('phoneErr').textContent = '';
+            }
+
+            var pass = document.getElementById('regPass').value;
+            if (pass.length < 6) {
+                document.getElementById('passErr').textContent = 'Min 6 characters';
+                valid = false;
+            } else {
+                document.getElementById('passErr').textContent = '';
+            }
+
+            if (valid) {
+                var users = JSON.parse(localStorage.getItem('users') || '[]');
+                users.push({ name: name, email: email, phone: phone, password: pass });
+                localStorage.setItem('users', JSON.stringify(users));
+
+                document.getElementById('msg').textContent = 'Registration Successful! You can now login.';
+                document.getElementById('msg').className = 'success';
+                document.querySelector('form').reset();
+            }
+
+            return false;
+        }
+    </script>
+
+</body>
+</html>

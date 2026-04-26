@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Real-time weather for any city — free, no API key needed." />
+    <title>WeatherNow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🌤</span>
+                <span class="logo-text">Weather<span>Now</span></span>
+            </div>
+            <p class="tagline">Real-time weather for any city</p>
+        </header>
+
+        <!-- Search -->
+        <section class="search-section" aria-label="City search">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="cityInput" placeholder="Enter city name…" autocomplete="off"
+                    aria-label="City name" maxlength="80" />
+                <button id="searchBtn" aria-label="Search weather">
+                    <span class="btn-text">Search</span>
+                    <span id="btnSpinner" hidden>…</span>
+                </button>
+            </div>
+            <div class="quick-cities" aria-label="Quick city selection">
+                <span class="quick-label">Quick:</span>
+                <button class="city-chip" data-city="New York">New York</button>
+                <button class="city-chip" data-city="London">London</button>
+                <button class="city-chip" data-city="Tokyo">Tokyo</button>
+                <button class="city-chip" data-city="Paris">Paris</button>
+                <button class="city-chip" data-city="Sydney">Sydney</button>
+                <button class="city-chip" data-city="Dubai">Dubai</button>
+            </div>
+        </section>
+
+        <!-- Message (errors / info) -->
+        <div class="message-box" id="messageBox" hidden aria-live="polite">
+            <span class="message-icon" id="messageIcon">⚠️</span>
+            <p class="message-text" id="messageText"></p>
+        </div>
+
+        <!-- Weather Card -->
+        <section class="weather-card" id="weatherCard" hidden aria-live="polite">
+
+            <div class="card-header">
+                <div>
+                    <h1 class="city-name" id="cityName">—</h1>
+                    <p class="city-country" id="cityCountry">—</p>
+                </div>
+                <div class="date-time" id="dateTime"></div>
+            </div>
+
+            <div class="main-weather">
+                <div class="weather-icon-wrap">
+                    <img id="weatherIcon" src="" alt="" />
+                    <p class="weather-desc" id="weatherDesc">—</p>
+                </div>
+                <div class="temp-block">
+                    <span class="temp-value" id="tempValue">—</span>
+                    <div class="temp-toggle">
+                        <button class="unit-btn active" id="btnCelsius" data-unit="celsius">°C</button>
+                        <button class="unit-btn" id="btnFahrenheit" data-unit="fahrenheit">°F</button>
+                    </div>
+                    <p class="feels-like">Feels like <span id="feelsLike">—</span></p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-icon">💧</span>
+                    <span class="stat-label">Humidity</span>
+                    <span class="stat-value" id="humidity">—</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">💨</span>
+                    <span class="stat-label">Wind</span>
+                    <span class="stat-value" id="windSpeed">—</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🌡️</span>
+                    <span class="stat-label">Pressure</span>
+                    <span class="stat-value" id="pressure">—</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">👁️</span>
+                    <span class="stat-label">Visibility</span>
+                    <span class="stat-value" id="visibility">—</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">☁️</span>
+                    <span class="stat-label">Cloud Cover</span>
+                    <span class="stat-value" id="clouds">—</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🧭</span>
+                    <span class="stat-label">Wind Dir.</span>
+                    <span class="stat-value" id="windDir">—</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">�</span>
+                    <span class="stat-label">Sunrise</span>
+                    <span class="stat-value" id="sunrise">—</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🌇</span>
+                    <span class="stat-label">Sunset</span>
+                    <span class="stat-value" id="sunset">—</span>
+                </div>
+            </div>
+
+            <p class="card-footer">
+                Data via <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a>
+                · Updated <span id="lastUpdated">—</span>
+            </p>
+
+        </section>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

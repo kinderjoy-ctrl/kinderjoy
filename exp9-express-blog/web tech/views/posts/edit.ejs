@@ -1,0 +1,33 @@
+<%- include('../partials/head', { title: 'Edit Post' }) %>
+<section class="card form-card">
+  <p class="eyebrow">Edit post</p>
+  <h1>Edit your post</h1>
+  <p class="lede">Update the title, author name, or body content.</p>
+
+  <% if (error) { %>
+    <div class="alert"><%= error %></div>
+  <% } %>
+
+  <form class="form" method="post" action="/posts/<%= post.id %>?_method=PUT">
+    <label>
+      <span>Title</span>
+      <input type="text" name="title" value="<%= post.title %>" maxlength="120" required />
+    </label>
+
+    <label>
+      <span>Author</span>
+      <input type="text" name="author" value="<%= post.author %>" maxlength="80" />
+    </label>
+
+    <label>
+      <span>Body</span>
+      <textarea name="body" rows="10" required><%= post.body %></textarea>
+    </label>
+
+    <div class="card-actions">
+      <button class="button primary" type="submit">Save changes</button>
+      <a class="button ghost" href="/posts/<%= post.id %>">Back</a>
+    </div>
+  </form>
+</section>
+<%- include('../partials/foot') %>

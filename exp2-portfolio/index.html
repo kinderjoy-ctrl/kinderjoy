@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Portfolio</div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+    </nav>
+
+    <section id="hero" class="hero">
+        <h1>Hi, I'm <span class="highlight">John Doe</span></h1>
+        <p>Full Stack Web Developer</p>
+        <a href="#projects" class="btn">View My Work</a>
+    </section>
+
+    <section id="about" class="about">
+        <h2>About Me</h2>
+        <p>I'm a web developer who builds modern web applications using HTML, CSS, JavaScript, and various frameworks.</p>
+    </section>
+
+    <section id="skills" class="skills">
+        <h2>Skills</h2>
+        <div class="skill-grid">
+            <div class="skill-card">HTML5</div>
+            <div class="skill-card">CSS3</div>
+            <div class="skill-card">JavaScript</div>
+            <div class="skill-card">React</div>
+            <div class="skill-card">Node.js</div>
+            <div class="skill-card">MongoDB</div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <h2>Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>E-Commerce Site</h3>
+                <p>A full-stack online store with payment integration.</p>
+            </div>
+            <div class="project-card">
+                <h3>Weather App</h3>
+                <p>Real-time weather data using REST APIs.</p>
+            </div>
+            <div class="project-card">
+                <h3>Chat Application</h3>
+                <p>Real-time messaging with WebSockets.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact</h2>
+        <p>Email: john@example.com | GitHub: github.com/johndoe</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 John Doe</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

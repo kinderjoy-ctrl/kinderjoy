@@ -1,0 +1,19 @@
+<%- include('../partials/head', { title: post.title }) %>
+<section class="card post-detail">
+  <div class="post-meta">
+    <span><%= post.author %></span>
+    <span>Created <%= new Date(post.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></span>
+    <span>Updated <%= new Date(post.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></span>
+  </div>
+  <h1><%= post.title %></h1>
+  <p><%= post.body %></p>
+
+  <div class="card-actions">
+    <a class="button ghost" href="/posts">All posts</a>
+    <a class="button ghost" href="/posts/<%= post.id %>/edit">Edit post</a>
+    <form method="post" action="/posts/<%= post.id %>?_method=DELETE" onsubmit="return confirm('Delete this post?');">
+      <button class="button danger" type="submit">Delete</button>
+    </form>
+  </div>
+</section>
+<%- include('../partials/foot') %>

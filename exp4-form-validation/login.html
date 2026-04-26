@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="form-box">
+        <h2>Login</h2>
+        <form onsubmit="return false">
+            <div class="field">
+                <label>Email</label>
+                <input type="text" id="loginEmail">
+            </div>
+            <div class="field">
+                <label>Password</label>
+                <input type="password" id="loginPass">
+            </div>
+            <button type="button" onclick="login()">Login</button>
+            <p id="loginMsg"></p>
+        </form>
+        <p class="link">Don't have an account? <a href="register.html">Register</a></p>
+    </div>
+
+    <script>
+        function login() {
+            var email = document.getElementById('loginEmail').value.trim();
+            var pass = document.getElementById('loginPass').value;
+            var msg = document.getElementById('loginMsg');
+
+            if (!email || !pass) {
+                msg.textContent = 'Please fill in both fields';
+                msg.style.color = 'red';
+                return;
+            }
+
+            var users = JSON.parse(localStorage.getItem('users') || '[]');
+
+            var jsonStr = JSON.stringify(users);
+            var blob = new Blob([jsonStr], { type: 'application/json' });
+            var url = URL.createObjectURL(blob);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    var found = false;
+                    var foundName = '';
+
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].email === email && data[i].password === pass) {
+                            found = true;
+                            foundName = data[i].name;
+                            break;
+                        }
+                    }
+
+                    if (found) {
+                        localStorage.setItem('loggedInUser', foundName);
+                        msg.textContent = 'Login Successful! Redirecting...';
+                        msg.style.color = 'green';
+                        setTimeout(function() {
+                            window.location.href = 'dashboard.html';
+                        }, 1000);
+                    } else {
+                        msg.textContent = 'Invalid email or password';
+                        msg.style.color = 'red';
+                    }
+
+                    URL.revokeObjectURL(url);
+                }
+            };
+            xhr.send();
+        }
+    </script>
+
+</body>
+</html>
