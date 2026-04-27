@@ -1,0 +1,33 @@
+db["students"].find()
+
+is also correct — but…
+
+👉 No data is showing because you haven’t inserted anything in this DB yet
+
+🚀 Now Do This (Copy-Paste in mongosh)
+➕ 1. INSERT (Very Important First Step)
+db.students.insertMany([
+  { name: "Rohan", email: "rohan@gmail.com", course: "CSE" },
+  { name: "Amit", email: "amit@gmail.com", course: "IT" },
+  { name: "Sneha", email: "sneha@gmail.com", course: "EXTC" }
+])
+📊 2. READ (Check Data)
+db.students.find().pretty()
+
+👉 Now you WILL see data ✔
+
+✏️ 3. UPDATE
+db.students.updateOne(
+  { name: "Rohan" },
+  { $set: { course: "AI" } }
+)
+
+👉 Check again:
+
+db.students.find().pretty()
+❌ 4. DELETE
+db.students.deleteOne({ name: "Amit" })
+
+👉 Verify:
+
+db.students.find()

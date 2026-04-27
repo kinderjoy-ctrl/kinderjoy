@@ -1,0 +1,166 @@
+🧰 Step 1: Setup Environment
+
+You need a local server stack:
+
+👉 Install:
+
+XAMPP (easiest for beginners)
+
+After installing:
+
+Open XAMPP Control Panel
+Start:
+Apache
+MySQL
+🗂 Step 2: Create Project Folder
+
+Go to:
+
+C:\xampp\htdocs\
+
+Create folder:
+
+my_php_project
+🛢 Step 3: Create MySQL Database
+Open browser:
+http://localhost/phpmyadmin
+Create database:
+student_db
+Create table:
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    course VARCHAR(100)
+);
+🔌 Step 4: Database Connection (PHP)
+
+Create file: db.php
+
+<?php
+$host = "localhost";
+$user = "root";
+$password = "";
+$dbname = "student_db";
+
+$conn = mysqli_connect($host, $user, $password, $dbname);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+?>
+📥 Step 5: Insert Data (Create)
+
+Create: insert.php
+
+<?php
+include 'db.php';
+
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $course = $_POST['course'];
+
+    $sql = "INSERT INTO students (name, email, course)
+            VALUES ('$name', '$email', '$course')";
+
+    mysqli_query($conn, $sql);
+    header("Location: index.php");
+}
+?>
+
+<form method="POST">
+    Name: <input type="text" name="name"><br>
+    Email: <input type="text" name="email"><br>
+    Course: <input type="text" name="course"><br>
+    <button type="submit" name="submit">Add</button>
+</form>
+📊 Step 6: Display Data (Read)
+
+Create: index.php
+
+<?php
+include 'db.php';
+
+$sql = "SELECT * FROM students";
+$result = mysqli_query($conn, $sql);
+?>
+
+<h2>Student List</h2>
+
+<a href="insert.php">Add New Student</a>
+
+<table border="1">
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Course</th>
+    <th>Actions</th>
+</tr>
+
+<?php while($row = mysqli_fetch_assoc($result)) { ?>
+<tr>
+    <td><?php echo $row['id']; ?></td>
+    <td><?php echo $row['name']; ?></td>
+    <td><?php echo $row['email']; ?></td>
+    <td><?php echo $row['course']; ?></td>
+    <td>
+        <a href="edit.php?id=<?php echo $row['id']; ?>">Edit</a>
+        <a href="delete.php?id=<?php echo $row['id']; ?>">Delete</a>
+    </td>
+</tr>
+<?php } ?>
+
+</table>
+✏️ Step 7: Update Data
+
+Create: edit.php
+
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+
+$result = mysqli_query($conn, "SELECT * FROM students WHERE id=$id");
+$row = mysqli_fetch_assoc($result);
+
+if (isset($_POST['update'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $course = $_POST['course'];
+
+    $sql = "UPDATE students 
+            SET name='$name', email='$email', course='$course'
+            WHERE id=$id";
+
+    mysqli_query($conn, $sql);
+    header("Location: index.php");
+}
+?>
+
+<form method="POST">
+    Name: <input type="text" name="name" value="<?php echo $row['name']; ?>"><br>
+    Email: <input type="text" name="email" value="<?php echo $row['email']; ?>"><br>
+    Course: <input type="text" name="course" value="<?php echo $row['course']; ?>"><br>
+    <button type="submit" name="update">Update</button>
+</form>
+❌ Step 8: Delete Data
+
+Create: delete.php
+
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+
+$sql = "DELETE FROM students WHERE id=$id";
+mysqli_query($conn, $sql);
+
+header("Location: index.php");
+?>
+🔄 Step 9: Run the Project
+
+Open in browser:
+
+http://localhost/my_php_project/index.php
